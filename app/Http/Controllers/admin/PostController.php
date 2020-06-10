@@ -31,9 +31,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        $tags = Tag::all();
+       
         $categories = Category::all();
-        return view('admin.post.post',compact('tags','categories'));
+        return view('admin.post.post',compact('categories'));
     }
 
     /**
@@ -59,9 +59,7 @@ class PostController extends Controller
         $posts->body_text = $request->body_text;
         $posts->status = $request->status;
         $posts->save();
-        $posts->tags()->sync($request->tags);
-        $posts->categories()->sync($request->categories);
-
+    
         $notification = array
         (
             'messege'=>'Successfully Post Created done!',
@@ -91,10 +89,9 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findorfail($id);
-        $tags = Tag::all();
         $categories = Category::all();
        
-        return view('admin.post.edit',compact('post','tags','categories'));
+        return view('admin.post.edit',compact('post','categories'));
     }
 
     /**
@@ -113,8 +110,6 @@ class PostController extends Controller
         $posts->slug = $request->slug;
         $posts->body_text = $request->body_text;
         $posts->status = $request->status;
-        $posts->tags()->sync($request->tags);
-        $posts->categories()->sync($request->categories);
         $posts->save();
 
         $notification = array
