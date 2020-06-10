@@ -19,6 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
+       
         $posts = Post::all();
         return view('admin.post.show',compact('posts'));
 
@@ -31,9 +32,9 @@ class PostController extends Controller
      */
     public function create()
     {
-       
+        $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.post.post',compact('categories'));
+        return view('admin.post.post',compact('categories','tags'));
     }
 
     /**
