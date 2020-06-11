@@ -45,6 +45,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+     
         $validatedData = $request->validate
         ([
             'title' => 'required|unique:posts',
@@ -60,6 +61,8 @@ class PostController extends Controller
         $posts->body_text = $request->body_text;
         $posts->status = $request->status;
         $posts->save();
+        $posts->tags()->sync($request->tags);
+        $posts->categories()->sync($request->categories);
     
         $notification = array
         (
@@ -111,6 +114,8 @@ class PostController extends Controller
         $posts->slug = $request->slug;
         $posts->body_text = $request->body_text;
         $posts->status = $request->status;
+        $posts->tags()->sync($request->tags);
+        $posts->categories()->sync($request->categories);
         $posts->save();
 
         $notification = array
