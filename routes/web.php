@@ -8,9 +8,18 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'user'],function(){
 
     Route::get('/','HomeController@index');
+
+    //Show All Post On Homepage:
     Route::get('/post/{post}','PostController@index')->name('post');
 
+    //See Post Under Tag & Category with pagination and url:
+    Route::get('post/tag/{tag}','HomeController@tag')->name('tag');
+    Route::get('post/category/{category}','HomeController@category')->name('category');
+
 });
+
+
+
 
 
 

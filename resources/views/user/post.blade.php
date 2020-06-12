@@ -14,23 +14,26 @@
 
                     {{-- Category are here--}}
                     @foreach($post->categories as $category)
-                    <p class="pull-right">
+                    <a href="{{ route('category',$category->slug) }}">
                         {{$category->name}}
-                    </p>
+                    </a>
                     @endforeach
 
                     <hr>
+
                     {{-- Post are Here--}}
                     {!! htmlspecialchars_decode($post->body_text) !!}
 
-
                     <hr>
+
                     {{-- Tags are here--}}
                     Tags:
                     @foreach($post->tags as $tag)
-                        <small class="pull-right">
+                        <a href="{{ route('tag',$tag->slug) }}">
+                            <small class="pull-right">
                             {{$tag->name}}
                         </small>
+                        </a>
                     @endforeach
 
                 </div>
