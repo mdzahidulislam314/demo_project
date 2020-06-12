@@ -53,7 +53,7 @@ class TagController extends Controller
             'alert-type'=>'success'
         );
 
-        return redirect()->route('tag.index')->with($notification);
+        return redirect()->route('tag.create')->with($notification);
 
     }
 

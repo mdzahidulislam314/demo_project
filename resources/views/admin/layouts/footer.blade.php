@@ -32,7 +32,8 @@
 <!-- daterangepicker -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 <script src="{{asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
-
+<!-- CK Editor -->
+<script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
 <!-- datepicker -->
 <script src="{{asset('admin/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 <!-- Bootstrap WYSIHTML5 -->
@@ -65,28 +66,28 @@
 </script>
 
 <script>
-    @if(Session::has('messege'))
-        var type="{{Session::get('alert-type','info')}}"
-        switch(type) {
-            case 'info':
-                toastr.info("{{Session::get('messege')}}");
-                break;
-            case 'success':
-                toastr.success("{{Session::get('messege')}}");
-                break;
-            case 'warning':
-                toastr.warning("{{Session::get('messege')}}");
-                break;
-            case 'error':
-                toastr.error("{{Session::get('messege')}}");
-                break;
-        }
-        @endif
+            @if(Session::has('messege'))
+    var type = "{{Session::get('alert-type','info')}}"
+    switch (type) {
+        case 'info':
+            toastr.info("{{Session::get('messege')}}");
+            break;
+        case 'success':
+            toastr.success("{{Session::get('messege')}}");
+            break;
+        case 'warning':
+            toastr.warning("{{Session::get('messege')}}");
+            break;
+        case 'error':
+            toastr.error("{{Session::get('messege')}}");
+            break;
+    }
+    @endif
 
 </script>
 
 <script>
-    $(document).on("click", "#delete", function(e){
+    $(document).on("click", "#delete", function (e) {
         e.preventDefault();
         var link = $(this).attr("href");
         swal({
@@ -108,8 +109,20 @@
 
 {{--Initialize Select2 Elements--}}
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         $(".select2").select2();
     });
 </script>
+
+{{--CK editor script--}}
+<script>
+    $(function () {
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace('editor1');
+        //bootstrap WYSIHTML5 - text editor
+        $(".textarea").wysihtml5();
+    });
+</script>
+

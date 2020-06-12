@@ -92,10 +92,11 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::findorfail($id);
+        $post = Post::with('tags','categories')->findorfail($id);
         $categories = Category::all();
+        $tags = Tag::all();
        
-        return view('admin.post.edit',compact('post','categories'));
+        return view('admin.post.edit',compact('post','categories','tags'));
     }
 
     /**
@@ -136,6 +137,8 @@ class PostController extends Controller
     public function destroy($id)
     {
         $posts = Post::findorfail($id);
+        $posts->categories()->detach();
+        $posts->tags()->detach();
         $posts->delete();
         return redirect()->back();
     }

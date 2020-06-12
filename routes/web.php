@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'user'],function(){
 
     Route::get('/','HomeController@index');
-    Route::get('/post','PostController@index');
+    Route::get('/post/{post}','PostController@index')->name('post');
 
 });
 
