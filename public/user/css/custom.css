@@ -1,0 +1,12 @@
+.level
+{
+	background: gold;
+	padding: 4px;
+	margin-right: 5px;
+	display: inline-block;
+}
+.a-tag{
+	text-decoration: none;
+	font-size: 14px;
+	display: block;
+}

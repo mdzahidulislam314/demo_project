@@ -20,13 +20,12 @@ Route::group(['namespace' => 'user'],function(){
 
 
 
-
-
-
 //Admin All Route
 Route::group(['namespace'=>'admin'],function(){
 
     Route::get('admin/home','HomeController@index')->name('admin.home');
+
+    Route::get('admin-home','LoginController@index')->name('admin.home');
 
     //user route
     Route::resource('admin/user','UserController');
@@ -41,3 +40,7 @@ Route::group(['namespace'=>'admin'],function(){
     Route::resource('admin/category','CategoryController');
 
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

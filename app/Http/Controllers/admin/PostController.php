@@ -54,8 +54,14 @@ class PostController extends Controller
             'body_text' => 'required',
         ]);
 
+        if ($request->hasFile('image')) {
+
+           $imageName = $request->image->store('post_image');
+        }
+
         $posts = new Post;
         $posts->title = $request->title;
+        $posts->image = $imageName;
         $posts->subtitle = $request->subtitle;
         $posts->slug = $request->slug;
         $posts->body_text = $request->body_text;

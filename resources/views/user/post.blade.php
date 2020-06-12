@@ -10,7 +10,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
-                    <h5 class="d-lg-inline">Created at: </h5>{{$post->created_at->diffForHumans()}}
+                    <h5 class="d-lg-inline">Created at: </h5>{{$post->created_at->diffForHumans()}}|
 
                     {{-- Category are here--}}
                     @foreach($post->categories as $category)
@@ -27,16 +27,18 @@
                     <hr>
 
                     {{-- Tags are here--}}
-                    Tags:
+                
+                    <p>
+                        <span><i class="fa fa-tags" aria-hidden="true"></i>Tags:</span>
                     @foreach($post->tags as $tag)
-                        <a href="{{ route('tag',$tag->slug) }}">
-                            <small class="pull-right">
-                            {{$tag->name}}
-                        </small>
-                        </a>
-                    @endforeach
-
-                </div>
+                    <span class="level">
+                         <a href="{{ route('tag',$tag->slug) }}" class="a-tag">
+                             {{$tag->name}}
+                         </a>
+                     </span>
+                        @endforeach
+                    </p>
+            </div>
             </div>
         </div>
     </article>

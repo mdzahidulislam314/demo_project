@@ -24,7 +24,7 @@
                             <a href="{{route('category.index')}}" class="btn btn-success">See All Category</a>
                         </div>
 
-                        <form action="{{URL::to('admin/category/'.$category->id)}}" method="post">
+                        <form action="{{URL::to('admin/category/'.$category->id)}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="_method" value="PUT">
                             <div class="box-body">
@@ -50,14 +50,9 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
-                <!-- /.col-->
             </div>
-            <!-- ./row -->
         </section>
-        <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
 
 @endsection
