@@ -3,28 +3,21 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\model\admin\Admin;
-use App\model\admin\Role;
+use App\model\admin\Permission;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
-
     public function index()
     {
-        $users = Admin::all();
-        return view('admin.user.index',compact('users'));
+
+        $permissions = Permission::all();
+        return view('admin.permission.show',compact('permissions'));
     }
 
     /**
@@ -34,8 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
-        return view('admin.user.create',compact('roles'));
+        return view('admin.permission.create');
     }
 
     /**
@@ -46,7 +38,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $permission = new Permission;
+        $permission->name = $request->name;
+        $permission->for = $request->for;
+        $permission->save();
 
+        return redirect()->route('permission.create');
     }
 
     /**

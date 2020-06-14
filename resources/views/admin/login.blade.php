@@ -7,15 +7,15 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="{{asset(admin/bootstrap/css/bootstrap.min.css)}}">
+  <link rel="stylesheet" href="{{asset('admin/bootstrap/css/bootstrap.min.css')}}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset(admin/dist/css/AdminLTE.min.css)}}">
+  <link rel="stylesheet" href="{{asset('admin/dist/css/AdminLTE.min.css')}}">
   <!-- iCheck -->
-  <link rel="stylesheet" href="{{asset(admin/plugins/iCheck/square/blue.css)}}">
+  <link rel="stylesheet" href="{{asset('admin/plugins/iCheck/square/blue.css')}}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,13 +33,24 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form action="../../index2.html" method="post">
+    @if ($errors->any())
+      <div class="alert alert-danger" style="padding: 10px;">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
+  <form action="{{route('admin.login')}}" method="post">
+    @csrf
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
+        <input type="email" class="form-control" placeholder="Email" name="email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
+        <input type="password" class="form-control" placeholder="Password" name="password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -58,29 +69,18 @@
       </div>
     </form>
 
-    <div class="social-auth-links text-center">
-      <p>- OR -</p>
-      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
-        Facebook</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
-        Google+</a>
-    </div>
-    <!-- /.social-auth-links -->
-
     <a href="#">I forgot my password</a><br>
-    <a href="register.html" class="text-center">Register a new membership</a>
-
   </div>
   <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
 
 <!-- jQuery 2.2.3 -->
-<script src="{{asset(admin/plugins/jQuery/jquery-2.2.3.min.js)}}"></script>
+<script src="{{asset('admin/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="{{asset(admin/bootstrap/js/bootstrap.min.js)}}"></script>
+<script src="{{asset('admin/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- iCheck -->
-<script src="{{asset(admin/plugins/iCheck/icheck.min.js)}}"></script>
+<script src="{{asset('admin/plugins/iCheck/icheck.min.js')}}"></script>
 <script>
   $(function () {
     $('input').iCheck({

@@ -21,26 +21,41 @@ Route::group(['namespace' => 'user'],function(){
 
 
 //Admin All Route
-Route::group(['namespace'=>'admin'],function(){
+Route::group(/**
+ *
+ */ ['namespace'=>'admin'],function(){
 
     Route::get('admin/home','HomeController@index')->name('admin.home');
 
-    Route::get('admin-home','LoginController@index')->name('admin.home');
+    // Route::get('admin-home','LoginController@index')->name('admin.home');
 
-    //user route
+    //User route
     Route::resource('admin/user','UserController');
 
-    //post route
+    //Role route
+    Route::resource('admin/role','RoleController');
+
+    //Permission route
+    Route::resource('admin/permission','PermissionController');
+
+    //Post route
     Route::resource('admin/post','PostController');
 
-    //tag route
+    //Tag route
     Route::resource('admin/tag','TagController');
 
-    //category route
+    //Category route
     Route::resource('admin/category','CategoryController');
+
+    //Admin auth routes:
+    Route::get('admin-login', 'Auth\LoginController@showLoginForm')->name('admin.login');
+    Route::post('admin-login', 'Auth\LoginController@login');
+    Route::post('/admin/logout', 'Auth\LoginController@logout')->name('admin.logout');
+
 
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+

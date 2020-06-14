@@ -10,3 +10,10 @@
 	font-size: 14px;
 	display: block;
 }
+
+.alert .alert-danger
+{
+	padding: 6px;
+	text-transform: capitalize;
+	font-style: italic;
+}

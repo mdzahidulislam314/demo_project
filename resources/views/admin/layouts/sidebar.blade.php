@@ -64,7 +64,36 @@
             </li>
 
             <li class="treeview">
-                <a href="{{route('user.index')}}"><i class="fa fa-user" aria-hidden="true"></i><span>Users</span></a>
+                <a href="">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>Users</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('user.create')}}"><i class="fa fa-circle-o"></i>Add New</a></li>
+                    <li><a href="{{route('user.index')}}"><i class="fa fa-circle-o"></i>All User</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>Manage Roles</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('role.create')}}"><i class="fa fa-circle-o"></i>Add New</a></li>
+                    <li><a href="{{route('role.index')}}"><i class="fa fa-circle-o"></i>All Role</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="{{route('permission.index')}}"><i class="fa fa-user"
+                                                    aria-hidden="true"></i><span>Permission</span></a>
             </li>
 
 

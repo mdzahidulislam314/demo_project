@@ -51,8 +51,6 @@
                             </li>
                         @endguest
 
-                    {{-- <a class="nav-link" href="{{ route('login') }}">Login</a> --}}
-                </li>
             </ul>
         </div>
     </div>

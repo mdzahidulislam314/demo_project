@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
-use App\model\user\Category;
+use App\model\admin\Permission;
+use App\model\admin\Role;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,15 +17,10 @@ class CategoryController extends Controller
     public function index()
     {
 
-        $categoies = Category::all();
-        return view('admin.category.show',compact('categoies'));
+        $roles = Role::all();
+        return view('admin.role.show',compact('roles'));
     }
 
-
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -32,7 +28,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.category');
+
+        $permissions = Permission::all();
+        return view('admin.role.create',compact('permissions'));
     }
 
     /**
@@ -43,25 +41,35 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
-           'name' => 'required',
-           'slug' => 'required',
+        $validatedData = $request->validate
+        ([
+            'name' => 'required|unique:roles',
         ]);
 
-        $categories = new Category;
-        $categories->name = $request->name;
-        $categories->slug = $request->slug;
-        $categories->save();
+        $roles = new Role;
+        $roles->name = $request->name;
+        $roles->save();
 
-        $notification = array(
-            'messege' => 'Successfully Created Done.!',
+        $notification = array
+        (
+            'messege'=>'Successfully Role Created done!',
             'alert-type' => 'success'
         );
 
-        return redirect()->route('category.index')->with($notification);
+        return redirect()->route('role.create')->with($notification);
 
 
+    }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
     }
 
     /**
@@ -72,8 +80,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findorfail($id);
-        return view('admin.category.edit',compact('category'));
+        $permissions = Permission::all();
+        $role = Role::find($id);
+        return view('admin.role.edit',compact('role','permissions'));
     }
 
     /**
@@ -85,10 +94,17 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category =Category::find($id);
-        $category->name = $request->name;
-        $category->slug = $request->slug;
-        $category->save();
+
+        $validatedData = $request->validate
+        ([
+            'name' => 'required',
+        ]);
+
+
+        $role =Role::find($id);
+        $role->name = $request->name;
+        $role->save();
+        $role->permission()->sync($request->permission);
 
         $notification = array
         (
@@ -96,7 +112,7 @@ class CategoryController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('category.index')->with($notification);
+        return redirect()->route('role.index')->with($notification);
     }
 
     /**
@@ -107,15 +123,17 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
-        $category->delete();
+        $role = Role::find($id);
+        $role->delete();
 
         $notification = array
         (
-            'messege'=>'Successfully Category Deleted done!',
+            'messege'=>'Successfully Role Deleted done!',
             'alert-type' => 'success'
         );
 
-        return redirect()->route('category.index')->with($notification);
+        return redirect()->route('role.index')->with($notification);
+
+
     }
 }

@@ -210,12 +210,17 @@
                         </li>
                     </ul>
                 </li>
-                <!-- User Account: style can be found in dropdown.less -->
+
+
                 <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{url('admin/dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
-                        <span class="hidden-xs">Alexander Pierce</span>
-                    </a>
+
+                    @if(Auth::guard('admin')->check())
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{{url('admin/dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{ Auth::guard('admin')->user()->name }} (ADMIN)</span>
+                        </a>
+                    @endif
+
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
@@ -246,9 +251,30 @@
                             <div class="pull-left">
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
                             </div>
-                            <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+
+                        @if(Auth::guard('admin')->check())
+                            <div class="btn btn-default pull-right">
+                                <a class="dropdown-item" href="#" onclick="event.preventDefault();document.querySelector('#admin-logout-form').submit();">
+                                    Logout
+                                </a>
+                                <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                             </div>
+                        @endif
+
+
+{{--                            <div class="btn btn-default pull-right">--}}
+{{--                                <a href="{{ route('logout') }}"--}}
+{{--                                   onclick="event.preventDefault();--}}
+{{--                                   document.getElementById('logout-form').submit();">--}}
+{{--                                    Logout--}}
+{{--                                </a>--}}
+
+{{--                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
+{{--                                    {{ csrf_field() }}--}}
+{{--                                </form>--}}
+{{--                            </div>--}}
                         </li>
                     </ul>
                 </li>

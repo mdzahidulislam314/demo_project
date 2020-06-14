@@ -5,7 +5,7 @@
 <div class="content-wrapper">
 <section class="content-header">
     <h1>
-        Users
+        Permission
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -20,7 +20,7 @@
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <a href="{{route('user.create')}}" class="btn btn-success">Add New User</a>
+            <a href="{{route('permission.create')}}" class="btn btn-success">Add New</a>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -32,7 +32,7 @@
         <div class="box-body">
             <div class="box">
                 <div class="box-header">
-
+                    <h3 class="box-title">Data Table With Full Features</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -40,22 +40,24 @@
                         <thead>
                         <tr>
                             <th>SL.No</th>
-                            <th>User Name</th>
+                            <th>Permission</th>
+                            <th>For</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $user)
+                        @foreach($permissions as $permission)
                         <tr>
                             <td>{{$loop->index+ 1}}</td>
-                            <td>{{$user->name}}</td>
+                            <td>{{$permission->name}}</td>
+                            <td>{{$permission->for}}</td>
                             <td class="text-center">
-                                <a href="{{route('user.edit',$user->id)}}" title="Edit" class="btn-sm btn-success"><i
+                                <a href="{{route('permission.edit',$permission->id)}}" title="Edit" class="btn-sm btn-success"><i
                                             class="fa
                                 fa-pencil-square"></i>
                                     </a>
 
-                                <form action="" method="post"
+                                <form action="{{URL::to('admin/permission',$permission->id)}}" method="post"
                                       style="display: inline-block;">
                                     @csrf
                                     @method('DELETE')
