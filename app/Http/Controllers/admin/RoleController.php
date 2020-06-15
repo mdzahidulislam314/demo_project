@@ -43,7 +43,7 @@ class RoleController extends Controller
     {
         $validatedData = $request->validate
         ([
-            'name' => 'required|unique:roles',
+            'name' => 'required',
         ]);
 
         $roles = new Role;
@@ -104,7 +104,7 @@ class RoleController extends Controller
         $role =Role::find($id);
         $role->name = $request->name;
         $role->save();
-        $role->permission()->sync($request->permission);
+        $role->permissions()->sync($request->permission);
 
         $notification = array
         (

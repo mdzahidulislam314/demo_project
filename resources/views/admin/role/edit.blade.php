@@ -23,8 +23,9 @@
                         <div class="box-header with-border">
                             <a href="{{route('role.index')}}" class="btn btn-success">See All Role</a>
                         </div>
-                        <form action="{{route('role.store')}}" method="post">
+                        <form action="{{url('admin/role/'.$role->id)}}" method="post">
                             @csrf
+                            @method('PUT')
                             <div class="box-body">
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -50,7 +51,15 @@
                                             @if($permission->for == 'post')
                                                 <div class="checkbox">
                                                     <label><input type="checkbox" name="permission[]"
-                                                                  value="{{$permission->id}}">{{$permission->name}}</label>
+                                                                  value="{{$permission->id}}"
+
+                                                              @foreach ($role->permissions as $role_permit)
+                                                                @if ($role_permit->id == $permission->id)
+                                                                  checked
+                                                                @endif
+                                                            @endforeach
+
+                                                        >{{$permission->name}}</label>
                                                 </div>
                                             @endif
                                         @endforeach
@@ -61,7 +70,14 @@
                                             @if($permission->for == 'user')
                                                 <div class="checkbox">
                                                     <label><input type="checkbox" name="permission[]"
-                                                                  value="{{$permission->id}}">{{$permission->name}}</label>
+                                                                  value="{{$permission->id}}"
+
+                                                              @foreach ($role->permissions as $role_permit)
+                                                                @if ($role_permit->id == $permission->id)
+                                                                  checked
+                                                                @endif
+                                                            @endforeach
+                                                        >{{$permission->name}}</label>
                                                 </div>
                                             @endif
                                         @endforeach
@@ -73,7 +89,15 @@
                                             @if($permission->for == 'other')
                                                 <div class="checkbox">
                                                     <label><input type="checkbox" name="permission[]"
-                                                                  value="{{$permission->id}}">{{$permission->name}}</label>
+                                                                  value="{{$permission->id}}"
+
+                                                      @foreach ($role->permissions as $role_permit)
+                                                          @if ($role_permit->id == $permission->id)
+                                                          checked
+                                                        @endif
+                                                    @endforeach
+
+                                                        >{{$permission->name}}</label>
                                                 </div>
                                             @endif
                                         @endforeach
