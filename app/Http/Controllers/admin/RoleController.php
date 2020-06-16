@@ -9,11 +9,12 @@ use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     public function index()
     {
 
@@ -49,6 +50,7 @@ class RoleController extends Controller
         $roles = new Role;
         $roles->name = $request->name;
         $roles->save();
+        $roles->permissions()->sync($request->permission);
 
         $notification = array
         (

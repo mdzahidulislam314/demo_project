@@ -76,7 +76,9 @@ class LoginController extends Controller
      */
     protected function credentials(Request $request)
     {
-        return $request->only($this->username(), 'password');
+
+        return ['email'=>$request->email,'password'=>$request->password,'status'=>1];
+        // return $request->only($this->username(), 'password');
     }
 
     /**

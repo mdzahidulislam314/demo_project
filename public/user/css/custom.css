@@ -1,19 +1,84 @@
-.level
-{
-	background: gold;
-	padding: 4px;
-	margin-right: 5px;
-	display: inline-block;
-}
-.a-tag{
-	text-decoration: none;
-	font-size: 14px;
-	display: block;
+.level {
+    background: #337ab7;
+    padding: 3px 7px 3px 7px;
+    margin-right: 3px;
+    display: inline-block;
+    color: white;
 }
 
-.alert .alert-danger
-{
-	padding: 6px;
-	text-transform: capitalize;
-	font-style: italic;
+.level-tag-a {
+    background: #337ab7;
+    margin-right: 2px;
+    display: inline-block;
+    color: white;
+}
+
+.a-tag {
+    text-decoration: none;
+    font-size: 15px;
+    display: block;
+    color: white;
+    padding: 2px 6px 2px 6px;
+}
+
+
+.a-tag:hover {
+    color: white;
+    background: #09528f;
+    text-decoration: none;
+}
+
+.alert .alert-danger {
+    padding: 6px;
+    text-transform: capitalize;
+    font-style: italic;
+}
+
+.cat_header {
+    font-size: 17px;
+    font-weight: 600;
+    background: #222222;
+    color: white;
+    padding: 7px;
+    text-align: center;
+}
+
+.well {
+    min-height: 300px;
+    padding: 8px;
+    margin-bottom: 60px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 2px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.level-cat {
+
+    background: #337ab7;
+}
+
+#cat-title {
+    font-size: 16px;
+    display: inline-block;
+}
+
+.cat-hover li a span:hover {
+    background: #09528f;
+
+}
+
+.post-top span {
+    font-size: 16px;
+}
+
+.post-top a {
+    text-decoration: none;
+    background: #4dabf9;
+    color: white;
+    font-weight: 600;
+    padding: 4px;
+    font-size: 12px;
+    margin-right: 3px;
 }

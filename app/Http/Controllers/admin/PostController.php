@@ -7,6 +7,7 @@ use App\model\user\Category;
 use App\model\user\Post;
 use App\model\user\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use PhpParser\Node\Stmt\Return_;
 
@@ -19,10 +20,8 @@ class PostController extends Controller
      */
     public function index()
     {
-       
         $posts = Post::all();
         return view('admin.post.show',compact('posts'));
-
     }
 
     public function __construct()
@@ -37,9 +36,13 @@ class PostController extends Controller
      */
     public function create()
     {
-        $tags = Tag::all();
-        $categories = Category::all();
-        return view('admin.post.post',compact('categories','tags'));
+        if (Auth::user()->can('posts.create')) {
+
+            $tags = Tag::all();
+            $categories = Category::all();
+            return view('admin.post.post',compact('categories','tags'));
+        }
+        return redirect(route('admin.home'));
     }
 
     /**
@@ -50,31 +53,32 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-     
         $validatedData = $request->validate
         ([
             'title' => 'required|unique:posts',
             'subtitle' => 'required',
             'slug' => 'required',
             'body_text' => 'required',
+            'image' => 'required',
         ]);
 
-        if ($request->hasFile('image')) {
-
-           $imageName = $request->image->store('post_image');
-        }
+        $image = $request->file('image');
+        $imageName = $image->getClientOriginalName();
+        $directory = './post-image/';
+        $image->move($directory,$imageName);
+        $imageUrl = $directory.$imageName;
 
         $posts = new Post;
         $posts->title = $request->title;
-        $posts->image = $imageName;
         $posts->subtitle = $request->subtitle;
         $posts->slug = $request->slug;
         $posts->body_text = $request->body_text;
         $posts->status = $request->status;
+        $posts->image = $imageUrl;
         $posts->save();
         $posts->tags()->sync($request->tags);
         $posts->categories()->sync($request->categories);
-    
+
         $notification = array
         (
             'messege'=>'Successfully Post Created done!',
@@ -103,11 +107,16 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::with('tags','categories')->findorfail($id);
-        $categories = Category::all();
-        $tags = Tag::all();
-       
-        return view('admin.post.edit',compact('post','categories','tags'));
+
+        if (Auth::user()->can('posts.update')) {
+            $post = Post::with('tags','categories')->findorfail($id);
+            $categories = Category::all();
+            $tags = Tag::all();
+            return view('admin.post.edit',compact('post','categories','tags'));
+        }
+        return redirect(route('admin.home'));
+
+
     }
 
     /**
@@ -119,13 +128,35 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate
+        ([
+            'title' => 'required|',
+            'subtitle' => 'required',
+            'slug' => 'required',
+            'body_text' => 'required',
+        ]);
 
         $posts = Post::find($id);
+        $image = $request->file('image');
+
+        if ($image)
+        {
+            unlink($posts->image);
+            $imageName = $image->getClientOriginalName();
+            $directory = './post-image/';
+            $image->move($directory,$imageName);
+            $imageUrl = $directory.$imageName;
+        } else
+        {
+            $imageUrl = $posts->image;
+        }
+
         $posts->title = $request->title;
         $posts->subtitle = $request->subtitle;
         $posts->slug = $request->slug;
         $posts->body_text = $request->body_text;
         $posts->status = $request->status;
+        $posts->image = $imageUrl;
         $posts->tags()->sync($request->tags);
         $posts->categories()->sync($request->categories);
         $posts->save();
@@ -148,9 +179,16 @@ class PostController extends Controller
     public function destroy($id)
     {
         $posts = Post::findorfail($id);
+        unlink($posts->image);
         $posts->categories()->detach();
         $posts->tags()->detach();
         $posts->delete();
-        return redirect()->back();
+
+        $notification = array
+        (
+            'messege'=>'Successfully Post Deleted done!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 }

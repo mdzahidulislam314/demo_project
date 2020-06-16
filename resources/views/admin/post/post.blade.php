@@ -35,7 +35,7 @@
                             </div>
                         @endif
 
-                        <form action="{{route('post.store')}}" method="post">
+                        <form action="{{route('post.store')}}" method="post" enctype="multipart/form-data">
                             @csrf
 
                             <div class="box-body">
@@ -61,14 +61,17 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <br>
+
                                     <div class="form-group">
                                         <div class="pull-right">
                                             <label for="image">File input</label>
-                                            <input type="file" name="image" id="image">
+                                            <input type="file" class="form-control" name="image" id="image">
                                         </div>
+
                                         <div class="checkbox pull-left">
                                             <label>
-                                                <input type="checkbox" name="status" value="1"> Publish
+                                                <input type="radio" name="status" value="1"> Publish
+                                                <input type="radio" name="status" value="0" checked> Unpublished
                                             </label>
                                         </div>
                                     </div>

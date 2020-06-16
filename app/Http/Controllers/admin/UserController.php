@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\model\admin\Admin;
 use App\model\admin\Role;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -20,6 +22,7 @@ class UserController extends Controller
     {
         $this->middleware('auth:admin');
     }
+
 
     public function index()
     {
@@ -46,6 +49,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $validateData = $request->validate([
+            'name' => 'required|string|max:191',
+            'email' => 'required|string|email|max:191|unique:admins',
+            'password' => 'required|string|min:8|confirmed',
+            'phone' => 'required|numeric|min:15',
+        ]);
+
+        $user = Admin::create([
+        'name' => $request['name'],
+        'email' => $request['email'],
+        'phone' => $request['phone'],
+        'status' => $request['status'],
+        'password' => Hash::make($request['password']),
+        ]);
+        $user->roles()->sync($request->role);
+
+        return redirect()->route('user.index');
 
     }
 
@@ -68,7 +88,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $roles = Role::all();
+        $user = Admin::findorfail($id);
+        return view('admin.user.edit',compact('user','roles'));
     }
 
     /**
@@ -80,7 +103,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validateData = $request->validate([
+            'name' => 'required|string|max:191',
+            'email' => 'required|string|email|max:191',
+            'phone' => 'required|numeric|min:15',
+        ]);
+
+        $request->status? : $request['status']=0;
+        $user = Admin::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->status = $request->status;
+        $user->save();
+        $user->roles()->sync($request->role);
+
+        return redirect()->route('user.index');
     }
 
     /**
@@ -91,6 +129,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user  = Admin::findorfail($id);
+        $user->delete();
+
+        return redirect(route('user.index'));
     }
 }

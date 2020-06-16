@@ -5,7 +5,7 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
-                Add Admin
+                Edit Admin
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -31,45 +31,34 @@
                         <div class="box-header with-border">
                             <a href="{{route('user.index')}}" class="btn btn-success">See All Users</a>
                         </div>
-                        <form action="{{route('user.store')}}" method="post">
+                        <form action="{{route('user.update',$user->id)}}" method="post">
                             @csrf
+                            @method('PUT')
                             <div class="box-body">
                                 <div class="col-lg-6 offset-lg-2">
                                     <div class="form-group">
                                         <label for="title">User Name:</label>
                                         <input type="text" class="form-control" id="title" name="name"
-                                               placeholder="Enter User Name">
+                                               value="{{$user->name}}">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="email">Email:</label>
                                         <input type="email" class="form-control" id="email" name="email"
-                                               placeholder="Enter Email Address">
+                                               value="{{$user->email}}">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="phone">Phone:</label>
                                         <input type="number" class="form-control" id="phone" name="phone"
-                                               placeholder="Enter Phone Number">
+                                               value="{{$user->phone}}">
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="password">Password:</label>
-                                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
-                                               placeholder="Enter Password">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="password-confirm">Conform Password:</label>
-                                        <input type="password" class="form-control" id="password-confirm" name="password_confirmation"
-                                               placeholder="Enter Password">
-                                    </div>
-
 
                                     <div class="form-group">
                                         <label for="status">Status</label>
                                         <div class="checkbox">
-                                            <label ><input type="checkbox" name="status" value="1">Status</label>
+                                            <label ><input type="checkbox" name="status" value="1" @if (old('status')==1 || $user->status == 1)
+                                                checked @endif  >Status</label>
                                         </div>
                                     </div>
 
@@ -77,7 +66,14 @@
                                         <label for="role">choose Role:</label>
                                         @foreach($roles as $role)
                                             <p><input type="checkbox"
-                                              value="{{$role->id}}" name="role[]"><span style="font-size: 15px;
+                                                      value="{{$role->id}}" name="role[]"
+
+                                                @foreach($user->roles as $user_role)
+                                                    @if($user_role->id == $role->id)
+                                                        checked
+                                                    @endif
+                                                @endforeach
+                                                > <span style="font-size: 15px;
                                               font-weight: 600;padding-left: 7px;" >{{$role->name}}</span></p>
                                         @endforeach
                                     </div>

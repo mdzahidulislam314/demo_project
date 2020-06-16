@@ -35,7 +35,7 @@
                             </div>
                         @endif
 
-                        <form action="{{URL::to('admin/post/'.$post->id)}}" method="post">
+                        <form action="{{URL::to('admin/post/'.$post->id)}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="_method" value="PUT">
                             <div class="box-body">
@@ -65,13 +65,14 @@
                                         <div class="pull-right">
                                             <label for="image">File input</label>
                                             <input type="file" name="image" id="image">
+                                            <img src="{{ asset($post->image) }}" alt="" height="70px" width="100px">
                                         </div>
                                         <div class="checkbox pull-left">
                                             <label>
-                                                <input type="checkbox" name="status"
-                                                       value="1" @if($post->status == 1) {{'checked'}}
-                                                        @endif>
-                                                Publish
+                                                <input type="radio" name="status" value="1" {{$post->status == 1
+                                                ?'checked' : '' }}> Publish
+                                                <input type="radio" name="status" value="0" {{$post->status == 0
+                                                ?'checked' : '' }}> Unpublished
                                             </label>
                                         </div>
                                     </div>

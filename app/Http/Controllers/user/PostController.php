@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\model\user\Post;
+use App\model\user\Category;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -12,6 +13,7 @@ class PostController extends Controller
 
     {
 
-        return view('user.post',compact('post'));
+        $categories = Category::all();
+        return view('user.post',compact('post','categories'));
     }
 }

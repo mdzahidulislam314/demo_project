@@ -41,6 +41,8 @@
                         <tr>
                             <th>SL.No</th>
                             <th>User Name</th>
+                            <th>Roles</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -49,13 +51,19 @@
                         <tr>
                             <td>{{$loop->index+ 1}}</td>
                             <td>{{$user->name}}</td>
+                            <td>
+                                @foreach($user->roles as $role)
+                                    {{$role->name.','}}
+                                @endforeach
+                            </td>
+                            <td>{{ $user->status? 'Active' : 'Inactive' }}</td>
                             <td class="text-center">
                                 <a href="{{route('user.edit',$user->id)}}" title="Edit" class="btn-sm btn-success"><i
                                             class="fa
                                 fa-pencil-square"></i>
                                     </a>
 
-                                <form action="" method="post"
+                                <form action="{{url('admin/user',$user->id)}}" method="post"
                                       style="display: inline-block;">
                                     @csrf
                                     @method('DELETE')
