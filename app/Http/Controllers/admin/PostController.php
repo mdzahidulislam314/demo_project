@@ -13,11 +13,8 @@ use PhpParser\Node\Stmt\Return_;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function index()
     {
         $posts = Post::all();
@@ -191,4 +188,5 @@ class PostController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
 }

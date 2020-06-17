@@ -34,7 +34,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 <script src="{{asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
 <!-- CK Editor -->
-<script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
+<script src="{{asset('admin/ckeditor/ckeditor.js')}}"></script>
 <!-- datepicker -->
 <script src="{{asset('admin/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 <!-- Bootstrap WYSIHTML5 -->
@@ -46,7 +46,6 @@
 <!-- AdminLTE App -->
 <script src="{{asset('admin/dist/js/app.min.js')}}"></script>
 
-{{--<script src="{{asset('admin/dist/js/pages/dashboard.js')}}"></script>--}}
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

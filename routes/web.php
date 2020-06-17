@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'user'],function(){
 
     Route::get('/','HomeController@index');
+    Route::get('/contact','HomeController@contact');
 
     //Show All Post On Homepage:
     Route::get('/post/{post}','PostController@index')->name('post');

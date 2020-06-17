@@ -1,6 +1,6 @@
 @extends('user.app')
 
-@section('bg-img',asset('user/img/post-bg.jpg'))
+@section('bg-img',asset($post->image))
 @section('title',$post->title)
 @section('sub_heading',$post->subtitle)
 
@@ -22,7 +22,11 @@
                 </a>
                 @endforeach
 
-                <hr>
+                <div class="entry-colors">
+                    <div class="color_col_1"></div>
+                    <div class="color_col_2"></div>
+                    <div class="color_col_3"></div>
+                </div>
 
                 {{-- Post are Here--}}
                 {!! htmlspecialchars_decode($post->body_text) !!}
@@ -30,7 +34,6 @@
                 <hr>
 
                 {{-- Tags are here--}}
-
                 <p>
                     <span><i class="fa fa-tags" aria-hidden="true"></i>Tags:</span>
                     @foreach($post->tags as $tag)

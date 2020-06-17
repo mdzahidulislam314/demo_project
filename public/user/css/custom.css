@@ -82,3 +82,35 @@
     font-size: 12px;
     margin-right: 3px;
 }
+.header.masthead.overlay
+{
+    background-color: #191919;
+    opacity: .7;
+}
+.entry-colors{
+    left: 0;
+    margin: 20px 0px 20px 0px;
+    display: block;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.color_col_1{
+    background:red ;
+    height: 5px;
+}
+.color_col_2{
+    background:#1EB2B2 ;
+    height: 5px;
+}
+.color_col_3{
+    background:#E0E0E0 ;
+    height: 5px;
+}
+
+.entry-colors .color_col_1, .entry-colors .color_col_2, .entry-colors .color_col_3
+{
+    float: left;
+    height: 5px;
+    width: 33.33%;
+}

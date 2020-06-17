@@ -14,8 +14,9 @@ class HomeController extends Controller
 	//Show All Published Post in home page:
     public function index()
     {
+        $categories = Category::all();
         $posts = Post::where('status',1)->paginate(4);
-        return view('user.home',compact('posts'));
+        return view('user.home',compact('posts','categories'));
     }
 
 
@@ -33,6 +34,12 @@ class HomeController extends Controller
     {
     	$posts = $category->posts();
 		return view('user.home',compact('posts'));
+    }
+
+
+    public function contact()
+    {
+       return view('user.contact');
     }
 
 
